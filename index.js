@@ -1,8 +1,6 @@
-'use strict';
+import 'array.prototype.find'
+import 'array.prototype.findindex'
+import 'setimmediate'
+import FDBFactory from './lib/FDBFactory'
 
-require('array.prototype.find');
-require('array.prototype.findindex');
-
-var FDBFactory = require('./lib/FDBFactory');
-
-module.exports = new FDBFactory();
+module.exports = new FDBFactory()
