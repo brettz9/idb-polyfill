@@ -22,8 +22,9 @@
   ],
   "main": "index.js",
   "scripts": {
-    "build": "browserify -t [ babelify --presets es2015 ] exports.js -o dist/fakeIndexedDB.js",
-    "test": "eslint index.js lib/ && mocha test/w3c test/fakeIndexedDB && node-qunit-phantomjs ./test/indexedDBmock/index.html"
+    "build": "browserify -t [ babelify --presets es2015 ] polyfill.js -o dist/fakeIndexedDB.js",
+    "qunit": "node-qunit-phantomjs ./test/indexedDBmock/index.html",
+    "test": "eslint index.js lib/ && mocha test/w3c test/fakeIndexedDB && npm run qunit"
   },
   "author": "Jeremy Scheff <jdscheff@gmail.com> (http://dumbmatter.com/)",
   "license": "Apache-2.0",
