@@ -1,5 +1,5 @@
 import structuredClone from './structuredClone'
-import FDBKeyRange from '../lib/FDBKeyRange'
+import FDBKeyRange from './FDBKeyRange'
 import KeyGenerator from './KeyGenerator'
 import ConstraintError from './errors/ConstraintError'
 import DataError from './errors/DataError'
