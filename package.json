@@ -30,6 +30,7 @@
   "dependencies": {
     "array.prototype.find": "^1.0.0",
     "array.prototype.findindex": "^1.0.0",
+    "deets": "^1.0.1",
     "inherits": "^2.0.1",
     "is-integer": "^1.0.6",
     "is-plain-obj": "^1.1.0",
