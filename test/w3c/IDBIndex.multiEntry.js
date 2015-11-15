@@ -63,13 +63,13 @@ describe('W3C IDBIndex.multiEntry Tests', function () {
     });
 
     // idbindex-multientry-big
-    it('a 1000 entry multiEntry array', function (done) {
+    it('a 100 entry multiEntry array', function (done) {
         var db;
 
         var open_rq = createdb(done);
         var obj = { test: 'yo', idxkeys: [] };
 
-        for (var i = 0; i < 1000; i++)
+        for (var i = 0; i < 100; i++)
             obj.idxkeys.push('index_no_' + i);
 
 
@@ -91,16 +91,16 @@ describe('W3C IDBIndex.multiEntry Tests', function () {
             tx.oncomplete = function() {
                 var idx = db.transaction('store').objectStore('store').index('index')
 
-                for (var i = 0; i < 1000; i++)
+                for (var i = 0; i < 100; i++)
                 {
                     idx.get('index_no_' + i).onsuccess = function(e) {
                         assert.equal(e.target.result.test, "yo");
                     };
                 }
 
-                idx.get('index_no_999').onsuccess = function(e) {
+                idx.get('index_no_99').onsuccess = function(e) {
                     assert.equal(e.target.result.test, "yo");
-                    assert.equal(e.target.result.idxkeys.length, 1000);
+                    assert.equal(e.target.result.idxkeys.length, 100);
                     done();
                 };
             };

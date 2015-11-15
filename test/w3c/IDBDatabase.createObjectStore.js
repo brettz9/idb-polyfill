@@ -201,14 +201,14 @@ describe('W3C IDBDatabase.createObjectStore Tests', function () {
     });
 
     // idbdatabase_createobjectstore10-1000ends
-    it('create 1000 object stores, add one item and delete', function (done) {
+    it('create 100 object stores, add one item and delete', function (done) {
         var db,
             open_rq = createdb(done)
 
         open_rq.onupgradeneeded = function(e) {
             db = e.target.result
             var st, i;
-            for (i = 0; i < 1000; i++)
+            for (i = 0; i < 100; i++)
             {
                 st = db.createObjectStore("object_store_" + i)
                 st.add("test", 1);

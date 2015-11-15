@@ -18,8 +18,7 @@
   "scripts": {
     "prepublish": "babel src --out-dir lib --presets es2015",
     "build": "browserify -t [ babelify --presets es2015 ] src/idb-polyfill.js -o dist/idb-polyfill.js -s idbPolyfill",
-    "qunit": "node-qunit-phantomjs ./test/indexedDBmock/index.html",
-    "test": "eslint src/ && mocha test/w3c test/fakeIndexedDB && npm run qunit"
+    "test": "eslint src/ && mocha test/**/*.js && browserify-test -t [ babelify --presets es2015 ] test/**/*.js"
   },
   "dependencies": {
     "array.prototype.find": "^1.0.0",
@@ -38,10 +37,9 @@
     "babel-eslint": "^4.1.5",
     "babel-preset-es2015": "^6.1.18",
     "babelify": "^7.2.0",
+    "browserify-test": "^2.1.2",
     "eslint": "^1.9.0",
     "eslint-config-airbnb": "^1.0.0",
-    "node-qunit-phantomjs": "^1.3.0",
-    "phantomjs-polyfill": "0.0.1",
-    "qunitjs": "^1.20.0"
+    "mocha": "^2.3.4"
   }
 }
