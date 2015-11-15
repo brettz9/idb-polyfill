@@ -1,6 +1,6 @@
 var assert = require('assert');
-var fakeIndexedDB = require('../..');
-var DataError = require('../../lib/errors/DataError');
+var indexedDB = require('../test-helper');
+var DataError = require('../../src/errors/DataError');
 var support = require('./support');
 var createdb = support.createdb;
 
@@ -36,7 +36,7 @@ describe('W3C IDBObjectStore.openCursor Tests', function () {
     // idbobjectstore_openCursor_invalid
     it('invalid', function (done) {
         var db, open;
-        open = fakeIndexedDB.open('testdb-' + new Date().getTime());
+        open = indexedDB.open('testdb-' + new Date().getTime());
         open.onupgradeneeded = function(e) {
             db = e.target.result;
             var objStore = db.createObjectStore("test");

@@ -1,5 +1,5 @@
 var assert = require('assert');
-var InvalidAccessError = require('../../lib/errors/InvalidAccessError');
+var InvalidAccessError = require('../../src/errors/InvalidAccessError');
 var support = require('./support');
 var createdb = support.createdb;
 

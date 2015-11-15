@@ -1,9 +1,9 @@
 var assert = require('assert');
-var fakeIndexedDB = require('../..');
-var FDBCursor = require('../../lib/FDBCursor');
-var FDBKeyRange = require('../../lib/FDBKeyRange');
-var InvalidStateError = require('../../lib/errors/InvalidStateError');
-var TransactionInactiveError = require('../../lib/errors/TransactionInactiveError');
+var indexedDB = require('../test-helper');
+var FDBCursor = require('../../src/FDBCursor');
+var FDBKeyRange = require('../../src/FDBKeyRange');
+var InvalidStateError = require('../../src/errors/InvalidStateError');
+var TransactionInactiveError = require('../../src/errors/TransactionInactiveError');
 var support = require('./support');
 var createdb = support.createdb;
 
@@ -13,7 +13,7 @@ describe('W3C IDBCursor.advance Tests', function () {
         var db;
 
         before(function (done) {
-            var open = fakeIndexedDB.open('testdb-' + new Date().getTime());
+            var open = indexedDB.open('testdb-' + new Date().getTime());
             open.onupgradeneeded = function(e) {
                 db = e.target.result;
                 var objStore = db.createObjectStore("test");
@@ -182,7 +182,7 @@ describe('W3C IDBCursor.advance Tests', function () {
             var db;
 
             before(function (done) {
-                open = fakeIndexedDB.open("testdb-" + new Date().getTime());
+                open = indexedDB.open("testdb-" + new Date().getTime());
                 open.onupgradeneeded = function(e) {
                     db = e.target.result;
                     var objStore = db.createObjectStore("test");
@@ -408,7 +408,7 @@ describe('W3C IDBCursor.advance Tests', function () {
             var db;
 
             before(function (done) {
-                open = fakeIndexedDB.open('testdb-' + new Date().getTime());
+                open = indexedDB.open('testdb-' + new Date().getTime());
                 open.onupgradeneeded = function(e) {
                     db = e.target.result;
                     var objStore = db.createObjectStore("test");

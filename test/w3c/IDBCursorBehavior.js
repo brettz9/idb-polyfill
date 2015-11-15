@@ -1,6 +1,6 @@
 var assert = require('assert');
-var fakeIndexedDB = require('../..');
-var FDBKeyRange = require('../../lib/FDBKeyRange');
+var indexedDB = require('../test-helper');
+var FDBKeyRange = require('../../src/FDBKeyRange');
 var support = require('./support');
 var createdb = support.createdb;
 
@@ -88,7 +88,7 @@ describe('W3C IDBCursor Behavior Tests', function () {
             var directions = ["next", "prev", "nextunique", "prevunique"];
             var doneCount = 0;
 
-            var open_rq = fakeIndexedDB.open("testdb-" + new Date().getTime() + Math.random());
+            var open_rq = indexedDB.open("testdb-" + new Date().getTime() + Math.random());
 
             open_rq.onupgradeneeded = function(e) {
                 var objStore = e.target.result.createObjectStore("test");
@@ -146,7 +146,7 @@ describe('W3C IDBCursor Behavior Tests', function () {
             var directions = ["next", "prev", "nextunique", "prevunique"];
             var doneCount = 0;
 
-            var open_rq = fakeIndexedDB.open("testdb-" + new Date().getTime() + Math.random());
+            var open_rq = indexedDB.open("testdb-" + new Date().getTime() + Math.random());
 
             open_rq.onupgradeneeded = function(e) {
                 var objStore = e.target.result.createObjectStore("test");
@@ -204,7 +204,7 @@ describe('W3C IDBCursor Behavior Tests', function () {
             var directions = ["next", "prev", "nextunique", "prevunique"];
             var doneCount = 0;
 
-            var open_rq = fakeIndexedDB.open("testdb-" + new Date().getTime() + Math.random());
+            var open_rq = indexedDB.open("testdb-" + new Date().getTime() + Math.random());
 
             open_rq.onupgradeneeded = function(e) {
                 var objStore = e.target.result.createObjectStore("test");
@@ -261,7 +261,7 @@ describe('W3C IDBCursor Behavior Tests', function () {
             var directions = ["next", "prev", "nextunique", "prevunique"];
             var doneCount = 0;
 
-            var open_rq = fakeIndexedDB.open("testdb-" + new Date().getTime() + Math.random());
+            var open_rq = indexedDB.open("testdb-" + new Date().getTime() + Math.random());
 
             open_rq.onupgradeneeded = function(e) {
                 var objStore = e.target.result.createObjectStore("test");
@@ -324,13 +324,13 @@ describe('W3C IDBCursor Behavior Tests', function () {
                 db = e.target.result;
                 var objStore = db.createObjectStore("test", { keyPath: "key" });
 
-                for (var i = 0; i < 500; i++)
+                for (var i = 0; i < 100; i++)
                     objStore.add({ key: i, val: "val_"+i });
 
-                var rq = objStore.add({ key: 500, val: "val_500" });
+                var rq = objStore.add({ key: 100, val: "val_100" });
 
                 rq.onsuccess = function() {
-                    for (var i = 999; i > 500; i--)
+                    for (var i = 199; i > 100; i--)
                         objStore.add({ key: i, val: "val_"+i });
                 };
 
@@ -346,11 +346,11 @@ describe('W3C IDBCursor Behavior Tests', function () {
                     var cursor = e.target.result,
                       store = e.target.source;
                     if (!cursor) {
-                        assert.equal(count, 997, "cursor run count");
+                        assert.equal(count, 197, "cursor run count");
 
                         var rq = e.target.source.count();
                         rq.onsuccess = function(e) {
-                            assert.equal(e.target.result, 995, "object count");
+                            assert.equal(e.target.result, 195, "object count");
                             done();
                         };
                         return;
@@ -363,49 +363,49 @@ describe('W3C IDBCursor Behavior Tests', function () {
                             break;
 
                         case 12:
-                        case 499:
-                        case 500:
-                        case 501:
+                        case 99:
+                        case 100:
+                        case 101:
                             assert.equal(count, cursor.key - 1, "count");
                             break;
 
                         // Delete the next key
-                        case 510:
-                            store.delete(511);
+                        case 110:
+                            store.delete(111);
                             break;
 
                         // Delete randomly
-                        case 512:
-                            store.delete(611);
-                            store.delete(499);
-                            store.delete(500);
+                        case 112:
+                            store.delete(114);
+                            store.delete(45);
+                            store.delete(84);
                             break;
 
                         // Delete and add a new key
-                        case 520:
-                            store.delete(521);
-                            store.add({ key: 521, val: "new"});
+                        case 120:
+                            store.delete(121);
+                            store.add({ key: 121, val: "new"});
                             break;
 
-                        case 521:
+                        case 121:
                             assert.equal(cursor.value.val, "new");
                             break;
 
                         // We should only be here once although we're basically making the index
                         // "heavier" with its new key.
-                        case 530:
-                            assert.equal(cursor.value.val, "val_530");
-                            cursor.update({ key: 530, val: "val_531" })
+                        case 130:
+                            assert.equal(cursor.value.val, "val_130");
+                            cursor.update({ key: 130, val: "val_131" })
 
-                            store.get(530).onsuccess = function(e) {
-                                assert.equal(e.target.result.val, "val_531");
+                            store.get(130).onsuccess = function(e) {
+                                assert.equal(e.target.result.val, "val_131");
                             };
                             break;
 
                         // Shouldn't happen.
                         case 11:
-                        case 511:
-                        case 611:
+                        case 111:
+                        case 114:
                             throw new Error(cursor.key + " should be deleted and never run");
                             break;
                     }
@@ -760,7 +760,7 @@ describe('W3C IDBCursor Behavior Tests', function () {
     // idbcursor-source
     it('IDBCursor.source', function (done) {
         var db;
-        var open_rq = fakeIndexedDB.open('testdb-' + new Date().getTime());
+        var open_rq = indexedDB.open('testdb-' + new Date().getTime());
         open_rq.onupgradeneeded = function(e) {
             db = e.target.result;
             var objStore = db.createObjectStore("my_objectstore");

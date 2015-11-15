@@ -1,6 +1,6 @@
 var assert = require('assert');
-var fakeIndexedDB = require('../..');
-var FDBVersionChangeEvent = require('../../lib/FDBVersionChangeEvent');
+var indexedDB = require('../test-helper');
+var FDBVersionChangeEvent = require('../../src/FDBVersionChangeEvent');
 var support = require('./support');
 var createdb = support.createdb;
 
@@ -14,7 +14,7 @@ describe('W3C IDBFactory.deleteDatabase Tests', function () {
             var db = e.target.result;
             db.close();
 
-            var delete_rq = fakeIndexedDB.deleteDatabase(db.name);
+            var delete_rq = indexedDB.deleteDatabase(db.name);
             delete_rq.onerror = function () { throw new Error("Unexpected delete_rq.error event"); };
             delete_rq.onsuccess = function (e) {
                 assert.equal(e.target.source, null, "event.target.source")
@@ -32,7 +32,7 @@ describe('W3C IDBFactory.deleteDatabase Tests', function () {
             var db = e.target.result;
             db.close();
 
-            var delete_rq = fakeIndexedDB.deleteDatabase(db.name);
+            var delete_rq = indexedDB.deleteDatabase(db.name);
             delete_rq.onerror = function () { throw new Error("Unexpected delete_rq.error event"); };
             delete_rq.onsuccess =  function (e) {
                 assert.equal(e.target.result, undefined, "result");
@@ -53,7 +53,7 @@ describe('W3C IDBFactory.deleteDatabase Tests', function () {
         open_rq.onsuccess = function(e) {
             db.close()
 
-            var delete_rq = fakeIndexedDB.deleteDatabase(db.name)
+            var delete_rq = indexedDB.deleteDatabase(db.name)
             delete_rq.onerror = function () { throw new Error("Unexpected delete_rq.error event") };
             delete_rq.onsuccess =  function (e) {
                 assert.equal(e.oldVersion, 9, "oldVersion")
@@ -67,7 +67,7 @@ describe('W3C IDBFactory.deleteDatabase Tests', function () {
 
     // idbfactory_deletedatabase4
     it('Test events opening a second database when one connection is open already', function (done) {
-        var openrq = fakeIndexedDB.open('db', 3);
+        var openrq = indexedDB.open('db', 3);
 
         openrq.onupgradeneeded = function(e) {
             e.target.result.createObjectStore('store');
@@ -89,7 +89,7 @@ describe('W3C IDBFactory.deleteDatabase Tests', function () {
         openrq.onblocked = function () { throw new Error("open.blocked"); };
 
         function Second(e) {
-            var deleterq = fakeIndexedDB.deleteDatabase('db');
+            var deleterq = indexedDB.deleteDatabase('db');
 
             deleterq.onsuccess = function(e) { done(); }
 
@@ -99,7 +99,7 @@ describe('W3C IDBFactory.deleteDatabase Tests', function () {
         }
     });
     it('Delete a nonexistant database', function (done) {
-        var deleterq = fakeIndexedDB.deleteDatabase('nonexistant');
+        var deleterq = indexedDB.deleteDatabase('nonexistant');
 
         deleterq.onsuccess = function(e) { done(); };
 
@@ -112,7 +112,7 @@ describe('W3C IDBFactory.deleteDatabase Tests', function () {
     it('IDBVersionChangeEvent fired in upgradeneeded, versionchange and deleteDatabase', function (done) {
         var db;
 
-        var openrq = fakeIndexedDB.open('db', 3);
+        var openrq = indexedDB.open('db', 3);
 
         openrq.onupgradeneeded = function(e) {
             assert.equal(e.oldVersion, 0, "old version (upgradeneeded)");
@@ -142,7 +142,7 @@ describe('W3C IDBFactory.deleteDatabase Tests', function () {
         openrq.onblocked = function () { throw new Error("open.blocked"); };
 
         function deleteDB (e) {
-            var deleterq = fakeIndexedDB.deleteDatabase('db');
+            var deleterq = indexedDB.deleteDatabase('db');
 
             deleterq.onsuccess = function(e) {
                 assert.equal(e.oldVersion, 3, "old version (delete.success)");

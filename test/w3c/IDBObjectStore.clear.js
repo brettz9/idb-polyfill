@@ -1,6 +1,6 @@
 var assert = require('assert');
-var InvalidStateError = require('../../lib/errors/InvalidStateError');
-var ReadOnlyError = require('../../lib/errors/ReadOnlyError');
+var InvalidStateError = require('../../src/errors/InvalidStateError');
+var ReadOnlyError = require('../../src/errors/ReadOnlyError');
 var support = require('./support');
 var createdb = support.createdb;
 

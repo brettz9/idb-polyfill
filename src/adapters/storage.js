@@ -56,6 +56,7 @@ exports.openDatabase = (name, cb) => {
 }
 
 exports.deleteDatabase = (name, cb) => {
+  delete connections[name]
   storage.del(prefix + name, cb)
 }
 

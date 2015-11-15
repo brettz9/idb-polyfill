@@ -1,7 +1,7 @@
 var assert = require('assert');
-var FDBKeyRange = require('../../lib/FDBKeyRange');
-var DataError = require('../../lib/errors/DataError');
-var TransactionInactiveError = require('../../lib/errors/TransactionInactiveError');
+var FDBKeyRange = require('../../src/FDBKeyRange');
+var DataError = require('../../src/errors/DataError');
+var TransactionInactiveError = require('../../src/errors/TransactionInactiveError');
 var support = require('./support');
 var createdb = support.createdb;
 

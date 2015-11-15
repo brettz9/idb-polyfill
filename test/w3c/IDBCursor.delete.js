@@ -1,8 +1,8 @@
 var assert = require('assert');
-var FDBCursor = require('../../lib/FDBCursor');
-var InvalidStateError = require('../../lib/errors/InvalidStateError');
-var ReadOnlyError = require('../../lib/errors/ReadOnlyError');
-var TransactionInactiveError = require('../../lib/errors/TransactionInactiveError');
+var FDBCursor = require('../../src/FDBCursor');
+var InvalidStateError = require('../../src/errors/InvalidStateError');
+var ReadOnlyError = require('../../src/errors/ReadOnlyError');
+var TransactionInactiveError = require('../../src/errors/TransactionInactiveError');
 var support = require('./support');
 var createdb = support.createdb;
 

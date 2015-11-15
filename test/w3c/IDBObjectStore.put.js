@@ -1,8 +1,8 @@
 var assert = require('assert');
-var FDBRequest = require('../../lib/FDBRequest');
-var DataError = require('../../lib/errors/DataError');
-var InvalidStateError = require('../../lib/errors/InvalidStateError');
-var ReadOnlyError = require('../../lib/errors/ReadOnlyError');
+var FDBRequest = require('../../src/FDBRequest');
+var DataError = require('../../src/errors/DataError');
+var InvalidStateError = require('../../src/errors/InvalidStateError');
+var ReadOnlyError = require('../../src/errors/ReadOnlyError');
 var support = require('./support');
 var createdb = support.createdb;
 

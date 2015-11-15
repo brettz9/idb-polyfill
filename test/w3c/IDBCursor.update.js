@@ -1,10 +1,10 @@
 var assert = require('assert');
-var FDBCursor = require('../../lib/FDBCursor');
-var DataError = require('../../lib/errors/DataError');
-var DataCloneError = require('../../lib/errors/DataCloneError');
-var InvalidStateError = require('../../lib/errors/InvalidStateError');
-var ReadOnlyError = require('../../lib/errors/ReadOnlyError');
-var TransactionInactiveError = require('../../lib/errors/TransactionInactiveError');
+var FDBCursor = require('../../src/FDBCursor');
+var DataError = require('../../src/errors/DataError');
+var DataCloneError = require('../../src/errors/DataCloneError');
+var InvalidStateError = require('../../src/errors/InvalidStateError');
+var ReadOnlyError = require('../../src/errors/ReadOnlyError');
+var TransactionInactiveError = require('../../src/errors/TransactionInactiveError');
 var support = require('./support');
 var createdb = support.createdb;
 

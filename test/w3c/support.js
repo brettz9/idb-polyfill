@@ -1,5 +1,4 @@
-var indexedDB = require('../..');
-if (typeof localStorage !== 'undefined') localStorage.clear()
+var indexedDB = require('../test-helper');
 
 function createdb(done, dbname, version)
 {

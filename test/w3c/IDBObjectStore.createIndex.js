@@ -1,7 +1,7 @@
 var assert = require('assert');
-var FDBIndex = require('../../lib/FDBIndex');
-var ConstraintError = require('../../lib/errors/ConstraintError');
-var InvalidStateError = require('../../lib/errors/InvalidStateError');
+var FDBIndex = require('../../src/FDBIndex');
+var ConstraintError = require('../../src/errors/ConstraintError');
+var InvalidStateError = require('../../src/errors/InvalidStateError');
 var support = require('./support');
 var createdb = support.createdb;
 

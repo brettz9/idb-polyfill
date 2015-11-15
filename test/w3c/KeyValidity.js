@@ -1,6 +1,6 @@
 var assert = require('assert');
-var FDBRequest = require('../../lib/FDBRequest');
-var DataError = require('../../lib/errors/DataError');
+var FDBRequest = require('../../src/FDBRequest');
+var DataError = require('../../src/errors/DataError');
 var support = require('./support');
 var createdb = support.createdb;
 

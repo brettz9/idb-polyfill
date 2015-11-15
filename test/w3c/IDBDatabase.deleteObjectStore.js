@@ -1,6 +1,6 @@
 var assert = require('assert');
-var InvalidStateError = require('../../lib/errors/InvalidStateError');
-var NotFoundError = require('../../lib/errors/NotFoundError');
+var InvalidStateError = require('../../src/errors/InvalidStateError');
+var NotFoundError = require('../../src/errors/NotFoundError');
 var support = require('./support');
 var createdb = support.createdb;
 

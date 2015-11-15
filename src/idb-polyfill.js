@@ -15,9 +15,9 @@ import IDBRequest from './FDBRequest'
 import IDBTransaction from './FDBTransaction'
 import IDBVersionChangeEvent from './FDBVersionChangeEvent'
 
-const indexedDb = new IDBFactory()
+const indexedDB = new IDBFactory()
 module.exports = {
-  indexedDb,
+  indexedDB,
   IDBCursor,
   IDBCursorWithValue,
   IDBDatabase,
@@ -31,7 +31,8 @@ module.exports = {
   IDBVersionChangeEvent,
 
   polyfill() {
-    global.pIndexedDb = indexedDb
+    if (typeof global.pIndexedDB !== 'undefined') return
+    global.pIndexedDB = indexedDB
     global.pIDBCursor = IDBCursor
     global.pIDBCursorWithValue = IDBCursorWithValue
     global.pIDBDatabase = IDBDatabase
@@ -47,6 +48,8 @@ module.exports = {
 
   polyfillExcept(browsers = []) {
     const browser = deets()
-    if (browsers.indexOf(browser.name) === -1) this.polyfill()
+    if (typeof indexedDB === 'undefined' || browsers.indexOf(browser.name) === -1) {
+      this.polyfill()
+    }
   },
 }

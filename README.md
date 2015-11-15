@@ -13,8 +13,8 @@ idbPolyfill.polyfill()
 // or use native implementation for some browsers
 idbPolyfill.polyfillExcept(['Chrome', 'Opera'])
 
-const indexedDB = global.indexedDB || global.pIndexedDB
-const IDBKeyRange = global.IDBKeyRange || global.pIDBKeyRange
+const indexedDB = global.pIndexedDB || global.indexedDB
+const IDBKeyRange = global.pIDBKeyRange || global.IDBKeyRange
 
 // or use polyfill explicitly and set your own globals
 import { indexedDB, IDBKeyRange } from 'idb-polyfill'

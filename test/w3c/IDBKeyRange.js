@@ -1,6 +1,6 @@
 var assert = require('assert');
-var FDBKeyRange = require('../../lib/FDBKeyRange');
-var DataError = require('../../lib/errors/DataError');
+var FDBKeyRange = require('../../src/FDBKeyRange');
+var DataError = require('../../src/errors/DataError');
 
 describe('W3C IDBKeyRange Tests', function () {
     // idbkeyrange

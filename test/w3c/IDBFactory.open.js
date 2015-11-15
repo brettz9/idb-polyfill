@@ -1,9 +1,9 @@
 var assert = require('assert');
-var fakeIndexedDB = require('../..');
-var Event = require('../../lib/Event');
-var FDBVersionChangeEvent = require('../../lib/FDBVersionChangeEvent');
-//var FDBTransaction = require('../../lib/FDBTransaction');
-//var InvalidStateError = require('../../lib/errors/InvalidStateError');
+var indexedDB = require('../test-helper');
+var Event = require('../../src/Event');
+var FDBVersionChangeEvent = require('../../src/FDBVersionChangeEvent');
+//var FDBTransaction = require('../../src/FDBTransaction');
+//var InvalidStateError = require('../../src/errors/InvalidStateError');
 var support = require('./support');
 var createdb = support.createdb;
 var format_value = support.format_value;
@@ -43,7 +43,7 @@ describe('W3C IDBFactory.open Tests', function () {
             var db = e.target.result;
             db.close();
 
-            var open_rq2 = fakeIndexedDB.open(db.name);
+            var open_rq2 = indexedDB.open(db.name);
             open_rq2.onsuccess = function(e) {
                 assert.equal(e.target.result.version, 13, "db.version")
                 done();
@@ -87,14 +87,14 @@ describe('W3C IDBFactory.open Tests', function () {
             var db = e.target.result;
             db.close();
 
-            var open_rq2 = fakeIndexedDB.open(db.name, 14);
+            var open_rq2 = indexedDB.open(db.name, 14);
             open_rq2.onupgradeneeded = function() {};
             open_rq2.onsuccess = open_previous_db;
             open_rq2.onerror = function () { throw new Error('Unexpected error') };
         }
 
         function open_previous_db(e) {
-            var open_rq3 = fakeIndexedDB.open(e.target.result.name, 13);
+            var open_rq3 = indexedDB.open(e.target.result.name, 13);
             open_rq3.onerror = function(e) {
                 assert.equal(e.target.error.name, 'VersionError', 'e.target.error.name')
                 done();
@@ -114,7 +114,7 @@ describe('W3C IDBFactory.open Tests', function () {
             var db = e.target.result;
             db.close();
 
-            var open_rq2 = fakeIndexedDB.open(db.name, 14);
+            var open_rq2 = indexedDB.open(db.name, 14);
             open_rq2.onupgradeneeded = function() {
                 did_upgrade = true;
             };
@@ -123,7 +123,7 @@ describe('W3C IDBFactory.open Tests', function () {
         }
 
         function open_current_db(e) {
-            var open_rq3 = fakeIndexedDB.open(e.target.result.name);
+            var open_rq3 = indexedDB.open(e.target.result.name);
             open_rq3.onsuccess = function(e) {
                 assert.equal(e.target.result.version, 14, "db.version")
                 done();
@@ -162,7 +162,7 @@ describe('W3C IDBFactory.open Tests', function () {
                 name = ((typeof val == "object" && val) ? "object" : format_value(val))
             }
             assert.throws(function() {
-              fakeIndexedDB.open('test', val);
+              indexedDB.open('test', val);
             }, TypeError, "Calling open() with version argument " + name + " should throw TypeError.");
         }
 
@@ -226,7 +226,7 @@ describe('W3C IDBFactory.open Tests', function () {
         };
         open_rq.onsuccess = function(e) {
             db.close();
-            var open_rq2 = fakeIndexedDB.open(db.name, 10);
+            var open_rq2 = indexedDB.open(db.name, 10);
             open_rq2.onupgradeneeded = function(e) {
                 db2 = e.target.result;
 
@@ -252,7 +252,7 @@ describe('W3C IDBFactory.open Tests', function () {
                 assert(db2.objectStoreNames.indexOf("store") >= 0, "objectStoreNames contains store after error");
                 assert(db2.objectStoreNames.indexOf("store2") < 0, "objectStoreNames not contains store2 after error");
 
-                var open_rq3 = fakeIndexedDB.open(db.name);
+                var open_rq3 = indexedDB.open(db.name);
                 open_rq3.onsuccess = function(e) {
                     var db3 = e.target.result;
 
@@ -323,7 +323,7 @@ describe('W3C IDBFactory.open Tests', function () {
             };
             db.close();
 
-            var open_rq2 = fakeIndexedDB.open(db.name, 10);
+            var open_rq2 = indexedDB.open(db.name, 10);
             open_rq2.onupgradeneeded = function(e) {
                 var db2 = e.target.result;
                 assert(db2.objectStoreNames.indexOf("store") >= 0, "objectStoreNames contains store");

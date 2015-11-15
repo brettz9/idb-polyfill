@@ -1,15 +1,15 @@
 var assert = require('assert');
-var fakeIndexedDB = require('../..');
-var DataError = require('../../lib/errors/DataError');
+var indexedDB = require('../test-helper');
+var DataError = require('../../src/errors/DataError');
 var support = require('./support');
 var createdb = support.createdb;
 
 describe('W3C IDBFactory.cmp Tests', function () {
     // idbfactory_cmp
     it("IDBFactory.cmp", function() {
-        var greater = fakeIndexedDB.cmp(2, 1);
-        var equal = fakeIndexedDB.cmp(2, 2);
-        var less = fakeIndexedDB.cmp(1, 2);
+        var greater = indexedDB.cmp(2, 1);
+        var equal = indexedDB.cmp(2, 2);
+        var less = indexedDB.cmp(1, 2);
 
         assert.equal(greater, 1, "greater");
         assert.equal(equal, 0, "equal");
@@ -19,29 +19,29 @@ describe('W3C IDBFactory.cmp Tests', function () {
     // idbfactory_cmp2
     it("no argument", function() {
         assert.throws(function() {
-            fakeIndexedDB.cmp();
+            indexedDB.cmp();
         }, TypeError);
     });
     it("null", function() {
         assert.throws(function() {
-            fakeIndexedDB.cmp(null, null);
+            indexedDB.cmp(null, null);
         }, DataError);
         assert.throws(function() {
-            fakeIndexedDB.cmp(1, null);
+            indexedDB.cmp(1, null);
         }, DataError);
         assert.throws(function() {
-            fakeIndexedDB.cmp(null, 1);
+            indexedDB.cmp(null, 1);
         }, DataError);
     });
     it("NaN", function() {
         assert.throws(function() {
-            fakeIndexedDB.cmp(NaN, NaN);
+            indexedDB.cmp(NaN, NaN);
         }, DataError);
         assert.throws(function() {
-            fakeIndexedDB.cmp(1, NaN);
+            indexedDB.cmp(1, NaN);
         }, DataError);
         assert.throws(function() {
-            fakeIndexedDB.cmp(NaN, 1);
+            indexedDB.cmp(NaN, 1);
         }, DataError);
     });
 
@@ -91,7 +91,7 @@ describe('W3C IDBFactory.cmp Tests', function () {
             };
 
             // The IDBKey.cmp test
-            var sorted = unsorted.slice(0).sort(function(a, b) { return fakeIndexedDB.cmp(a, b)});
+            var sorted = unsorted.slice(0).sort(function(a, b) { return indexedDB.cmp(a, b)});
 
             for (var i in sorted)
                 if (typeof sorted[i] === "object" && 'valueOf' in sorted[i])

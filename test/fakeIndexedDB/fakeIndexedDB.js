@@ -1,12 +1,10 @@
-'use strict';
+var assert = require('assert')
+var indexedDB = require('../test-helper')
 
-var assert = require('assert');
-var fakeIndexedDB = require('../..');
-
-describe('fakeIndexedDB Tests', function () {
+describe('indexedDB Tests', function () {
     describe('Transaction Lifetime', function () {
         it('Transactions should be activated from queue based on mode', function (done) {
-            var request = fakeIndexedDB.open('test' + Math.random());
+            var request = indexedDB.open('test' + Math.random());
             request.onupgradeneeded = function(e) {
                 var db = e.target.result;
                 var store = db.createObjectStore('store', {keyPath: 'key'});
@@ -67,7 +65,7 @@ describe('fakeIndexedDB Tests', function () {
     });
     describe('Transaction Rollback', function () {
         it('Rollback FDBObjectStore.add', function (done) {
-            var request = fakeIndexedDB.open('test' + Math.random());
+            var request = indexedDB.open('test' + Math.random());
             request.onupgradeneeded = function(e) {
                 var db = e.target.result;
                 var store = db.createObjectStore('store', {autoIncrement: true});
@@ -108,7 +106,7 @@ describe('fakeIndexedDB Tests', function () {
         });
 
         it('Rollback FDBObjectStore.clear', function (done) {
-            var request = fakeIndexedDB.open('test' + Math.random());
+            var request = indexedDB.open('test' + Math.random());
             request.onupgradeneeded = function(e) {
                 var db = e.target.result;
                 var store = db.createObjectStore('store', {autoIncrement: true});
@@ -138,7 +136,7 @@ describe('fakeIndexedDB Tests', function () {
         });
 
         it('Rollback FDBObjectStore.delete', function (done) {
-            var request = fakeIndexedDB.open('test' + Math.random());
+            var request = indexedDB.open('test' + Math.random());
             request.onupgradeneeded = function(e) {
                 var db = e.target.result;
                 var store = db.createObjectStore('store', {autoIncrement: true});
@@ -168,7 +166,7 @@ describe('fakeIndexedDB Tests', function () {
         });
 
         it('Rollback FDBObjectStore.put', function (done) {
-            var request = fakeIndexedDB.open('test' + Math.random());
+            var request = indexedDB.open('test' + Math.random());
             request.onupgradeneeded = function(e) {
                 var db = e.target.result;
                 var store = db.createObjectStore('store', {autoIncrement: true});
@@ -197,7 +195,7 @@ describe('fakeIndexedDB Tests', function () {
         });
 
         it('Rollback FDBCursor.delete', function (done) {
-            var request = fakeIndexedDB.open('test' + Math.random());
+            var request = indexedDB.open('test' + Math.random());
             request.onupgradeneeded = function(e) {
                 var db = e.target.result;
                 var store = db.createObjectStore('store', {autoIncrement: true});
@@ -231,7 +229,7 @@ describe('fakeIndexedDB Tests', function () {
         });
 
         it('Rollback FDBCursor.update', function (done) {
-            var request = fakeIndexedDB.open('test' + Math.random());
+            var request = indexedDB.open('test' + Math.random());
             request.onupgradeneeded = function(e) {
                 var db = e.target.result;
                 var store = db.createObjectStore('store', {autoIncrement: true});
@@ -266,7 +264,7 @@ describe('fakeIndexedDB Tests', function () {
 
         it('Rollback of versionchange transaction', function (done) {
             var dbName = 'test' + Math.random();
-            var request = fakeIndexedDB.open(dbName);
+            var request = indexedDB.open(dbName);
             request.onupgradeneeded = function(e) {
                 var db = e.target.result;
                 var store = db.createObjectStore('store', {autoIncrement: true});
@@ -280,7 +278,7 @@ describe('fakeIndexedDB Tests', function () {
                 var db = e.target.result;
                 db.close();
 
-                var request = fakeIndexedDB.open(dbName, 2);
+                var request = indexedDB.open(dbName, 2);
                 request.onupgradeneeded = function(e) {
                     var db = e.target.result;
                     var store = e.target.transaction.objectStore('store');
@@ -303,7 +301,7 @@ describe('fakeIndexedDB Tests', function () {
                     request.transaction.abort();
                 };
                 request.onerror = function () {
-                    var request = fakeIndexedDB.open(dbName);
+                    var request = indexedDB.open(dbName);
                     request.onsuccess = function(e) {
                         var db = e.target.result;
                         assert.equal(db.version, 1);

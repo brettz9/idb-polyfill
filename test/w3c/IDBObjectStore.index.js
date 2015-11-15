@@ -1,5 +1,5 @@
 var assert = require('assert');
-var FDBIndex = require('../../lib/FDBIndex');
+var FDBIndex = require('../../src/FDBIndex');
 var support = require('./support');
 var createdb = support.createdb;
 

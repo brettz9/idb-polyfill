@@ -1,11 +1,11 @@
 var assert = require('assert');
-var fakeIndexedDB = require('../..');
-var FDBCursor = require('../../lib/FDBCursor');
-var FDBCursorWithValue = require('../../lib/FDBCursorWithValue');
-var FDBKeyRange = require('../../lib/FDBKeyRange');
-var DataError = require('../../lib/errors/DataError');
-var InvalidStateError = require('../../lib/errors/InvalidStateError');
-var TransactionInactiveError = require('../../lib/errors/TransactionInactiveError');
+var indexedDB = require('../test-helper');
+var FDBCursor = require('../../src/FDBCursor');
+var FDBCursorWithValue = require('../../src/FDBCursorWithValue');
+var FDBKeyRange = require('../../src/FDBKeyRange');
+var DataError = require('../../src/errors/DataError');
+var InvalidStateError = require('../../src/errors/InvalidStateError');
+var TransactionInactiveError = require('../../src/errors/TransactionInactiveError');
 var support = require('./support');
 var createdb = support.createdb;
 
@@ -21,7 +21,7 @@ describe('W3C IDBCursor.continue Tests', function () {
                           { value: "taco",    key: 2 } ];
 
             before(function (done) {
-                open = fakeIndexedDB.open('testdb-' + new Date().getTime());
+                open = indexedDB.open('testdb-' + new Date().getTime());
                 open.onupgradeneeded = function(e) {
                     var os, i;
                     db = e.target.result;

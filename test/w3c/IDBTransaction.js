@@ -1,8 +1,8 @@
 var assert = require('assert');
-var indexedDB = require('../..');
-var FDBOpenDBRequest = require('../../lib/FDBOpenDBRequest');
-var FDBTransaction = require('../../lib/FDBTransaction');
-var InvalidStateError = require('../../lib/errors/InvalidStateError');
+var indexedDB = require('../test-helper');
+var FDBOpenDBRequest = require('../../src/FDBOpenDBRequest');
+var FDBTransaction = require('../../src/FDBTransaction');
+var InvalidStateError = require('../../src/errors/InvalidStateError');
 var support = require('./support');
 var createdb = support.createdb;
 

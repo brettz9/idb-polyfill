@@ -1,8 +1,8 @@
 var assert = require('assert');
-var fakeIndexedDB = require('../..');
-var FDBObjectStore = require('../../lib/FDBObjectStore');
-var ConstraintError = require('../../lib/errors/ConstraintError');
-var InvalidStateError = require('../../lib/errors/InvalidStateError');
+var indexedDB = require('../test-helper');
+var FDBObjectStore = require('../../src/FDBObjectStore');
+var ConstraintError = require('../../src/errors/ConstraintError');
+var InvalidStateError = require('../../src/errors/InvalidStateError');
 var support = require('./support');
 var createdb = support.createdb;
 
@@ -220,7 +220,7 @@ describe('W3C IDBDatabase.createObjectStore Tests', function () {
         }
         open_rq.onsuccess = function(e) {
             db.close()
-            fakeIndexedDB.deleteDatabase(db.name).onsuccess = function(e) {
+            indexedDB.deleteDatabase(db.name).onsuccess = function(e) {
                 done()
             }
         }

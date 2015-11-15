@@ -1,6 +1,6 @@
 var assert = require('assert');
-var fakeIndexedDB = require('../..');
-var InvalidStateError = require('../../lib/errors/InvalidStateError');
+var indexedDB = require('../test-helper');
+var InvalidStateError = require('../../src/errors/InvalidStateError');
 var support = require('./support');
 var createdb = support.createdb;
 
@@ -20,7 +20,7 @@ describe('W3C IDBDatabase.close Tests', function () {
             db.onversionchange = function(e) {
                 versionchange_fired = counter++;
             };
-            var rq = fakeIndexedDB.open(db.name, db.version + 1);
+            var rq = indexedDB.open(db.name, db.version + 1);
             rq.onblocked = function (e) {
                 blocked_fired = counter++;
                 db.close();
@@ -54,7 +54,7 @@ describe('W3C IDBDatabase.close Tests', function () {
               versionchange_fired = true;
             };
 
-            var rq = fakeIndexedDB.deleteDatabase(db.name);
+            var rq = indexedDB.deleteDatabase(db.name);
             rq.onblocked = function (e) {
                 blocked_fired = true;
                 db.close();
