@@ -1,4 +1,5 @@
 var indexedDB = require('../..');
+if (typeof localStorage !== 'undefined') localStorage.clear()
 
 function createdb(done, dbname, version)
 {

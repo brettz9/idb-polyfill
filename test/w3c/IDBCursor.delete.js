@@ -56,7 +56,7 @@ describe('W3C IDBCursor.delete Tests', function () {
 
                     if (!cursor) {
                         assert.equal(count, 1, 'count');
-                        done();
+                        return done();
                     }
 
                     assert.equal(cursor.value.pKey, records[1].pKey);
@@ -243,7 +243,7 @@ describe('W3C IDBCursor.delete Tests', function () {
 
                     if (!cursor) {
                         assert.equal(count, 1, 'count');
-                        done();
+                        return done();
                     }
 
                     assert.equal(cursor.value.pKey, records[1].pKey);

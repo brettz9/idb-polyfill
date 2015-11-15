@@ -255,8 +255,7 @@ describe('W3C IDBCursor.continue Tests', function () {
                     var cursor = e.target.result;
                     if (!cursor) {
                         assert.equal(count, records.length, "cursor run count");
-                        done();
-                        return;
+                        return done();
                     }
 
                     var record = cursor.value;
@@ -334,7 +333,7 @@ describe('W3C IDBCursor.continue Tests', function () {
                     var cursor = e.target.result;
                     if (!cursor) {
                         assert.equal(count, 2, "ran number of times");
-                        done();
+                        return done()
                     }
 
                     // First time checks key equal, second time checks key less than
@@ -634,7 +633,7 @@ describe('W3C IDBCursor.continue Tests', function () {
                     var cursor = e.target.result;
                     if (!cursor) {
                         assert.equal(count, records.length, "cursor run count");
-                        done();
+                        return done()
                     }
 
                     var record = cursor.value;

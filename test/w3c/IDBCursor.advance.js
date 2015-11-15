@@ -718,7 +718,7 @@ describe('W3C IDBCursor.advance Tests', function () {
                     var cursor = e.target.result;
                     if (!cursor) {
                         assert.equal(count, expected.length, "cursor run count")
-                        done()
+                        return done()
                     }
 
                     var record = cursor.value;
@@ -987,16 +987,18 @@ describe('W3C IDBCursor.advance Tests', function () {
                 var reallyDone = false;
                 rq.onsuccess = function(event) {
                     var cursor = event.target.result;
-                    assert(cursor instanceof FDBCursor);
+                    if (cursor) {
+                        assert(cursor instanceof FDBCursor);
 
-                    cursor.advance(1);
-                    assert.throws(function() {
                         cursor.advance(1);
-                    }, InvalidStateError, "Calling advance() should throw DOMException when the cursor is currently being iterated.");
+                        assert.throws(function() {
+                            cursor.advance(1);
+                        }, InvalidStateError, "Calling advance() should throw DOMException when the cursor is currently being iterated.");
 
-                    if (!reallyDone) {
-                        reallyDone = true;
-                        done();
+                        if (!reallyDone) {
+                            reallyDone = true;
+                            done();
+                        }
                     }
                 };
             }

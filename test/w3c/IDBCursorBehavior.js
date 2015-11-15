@@ -447,7 +447,7 @@ describe('W3C IDBCursor Behavior Tests', function () {
                     var cursor = e.target.result;
                     if (!cursor) {
                         assert.equal(count, 2, "cursor run count");
-                        done();
+                        return done();
                     }
 
                     if (count === 0) {
@@ -492,7 +492,7 @@ describe('W3C IDBCursor Behavior Tests', function () {
                     var cursor = e.target.result;
                     if (!cursor) {
                         assert.equal(count, 3, "cursor run count");
-                        done();
+                        return done();
                     }
 
                     if (count === 0) {
@@ -534,7 +534,7 @@ describe('W3C IDBCursor Behavior Tests', function () {
                     var cursor = e.target.result;
                     if (!cursor) {
                         assert.equal(count, 2, "cursor run count");
-                        done();
+                        return done();
                     }
 
                     var record = cursor.value;
@@ -577,7 +577,7 @@ describe('W3C IDBCursor Behavior Tests', function () {
                     var cursor = e.target.result;
                     if (!cursor) {
                         assert.equal(count, 3, "cursor run count");
-                        done();
+                        return done();
                     }
 
                     var record = cursor.value;
