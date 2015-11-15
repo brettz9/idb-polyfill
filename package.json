@@ -1,33 +1,26 @@
 {
-  "name": "fake-indexeddb",
-  "version": "1.0.3",
-  "description": "Fake IndexedDB: a pure JS in-memory implementation of the IndexedDB API",
-  "homepage": "https://github.com/dumbmatter/fakeIndexedDB",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/dumbmatter/fakeIndexedDB.git"
-  },
-  "bugs": {
-    "url": "https://github.com/dumbmatter/fakeIndexedDB/issues"
-  },
+  "name": "idb-polyfill",
+  "version": "0.1.0",
+  "description": "IndexedDB polyfill",
+  "repository": "treojs/idb-polyfill",
+  "license": "Apache-2.0",
+  "main": "lib/idb-polyfill.js",
+  "files": [
+    "lib"
+  ],
   "keywords": [
     "indexeddb",
-    "datastore",
-    "database",
-    "embedded",
-    "nosql",
-    "in-memory",
     "polyfill",
+    "in-memory",
+    "idb",
     "shim"
   ],
-  "main": "index.js",
   "scripts": {
-    "build": "browserify -t [ babelify --presets es2015 ] polyfill.js -o dist/fakeIndexedDB.js",
+    "prepublish": "babel src --out-dir lib --presets es2015",
+    "build": "browserify -t [ babelify --presets es2015 ] src/idb-polyfill.js -o dist/idb-polyfill.js -s idbPolyfill",
     "qunit": "node-qunit-phantomjs ./test/indexedDBmock/index.html",
-    "test": "eslint index.js lib/ && mocha test/w3c test/fakeIndexedDB && npm run qunit"
+    "test": "eslint src/ && mocha test/w3c test/fakeIndexedDB && npm run qunit"
   },
-  "author": "Jeremy Scheff <jdscheff@gmail.com> (http://dumbmatter.com/)",
-  "license": "Apache-2.0",
   "dependencies": {
     "array.prototype.find": "^1.0.0",
     "array.prototype.findindex": "^1.0.0",
